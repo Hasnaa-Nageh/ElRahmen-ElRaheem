@@ -25,6 +25,7 @@ const signup = async (req, res, next) => {
       fullname,
       email: normalizeEmail,
       password,
+      phone,
       role: "patient",
     });
 
