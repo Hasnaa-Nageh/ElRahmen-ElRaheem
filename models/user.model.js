@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       unique: true,
+      trim: true,
     },
+
     role: {
       type: String,
       enum: ["admin", "doctor", "reception", "lab", "patient"],
