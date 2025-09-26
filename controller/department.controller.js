@@ -57,9 +57,12 @@ const addDepartment = async (req, res) => {
     }
     const department = new Department({
       name,
-      icon: req.file ? `/uploads/departments/${req.file.filename}` : "",
+      icon: req.file
+        ? `/uploads/departments/${req.file.filename}` // في حالة رفع فايل
+        : icon || "",
       createdBy: req.user?.id || null,
     });
+
     await department.save();
     res.status(201).json({
       success: true,
