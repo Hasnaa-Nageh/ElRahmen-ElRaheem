@@ -23,10 +23,7 @@ app.get("/", (req, res) => {
 
 app.use(
   cors({
-    origin: [
-      "https://to-do-list-frontend-red.vercel.app",
-      "http://localhost:5173/",
-    ],
+    origin: "http://localhost:5173",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
