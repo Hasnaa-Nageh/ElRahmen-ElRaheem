@@ -11,8 +11,8 @@ const { authenticateToken } = require("../middleware/authenticate.middleware");
 const authorize = require("../middleware/authorize.middleware");
 
 router.post("/", authenticateToken, authorize("admin"), addDepartment);
-router.get("/", authenticateToken, getAllDepartment);
-router.get("/:id", authenticateToken, getSingleDepartment);
+router.get("/", getAllDepartment);
+router.get("/:id", getSingleDepartment);
 router.put("/:id", authenticateToken, authorize("admin"), updateDepartment);
 router.delete("/:id", authenticateToken, authorize("admin"), deleteDepartment);
 
