@@ -6,6 +6,7 @@ const departmentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Doctor name is required"],
       trim: true,
+      unique: true,
     },
     icon: {
       type: String,
