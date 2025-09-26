@@ -2,12 +2,13 @@ const Department = require("./../models/department.model");
 
 const getAllDepartment = async (req, res) => {
   try {
-    const department = await Department.find().sort({ name });
-    if (!department) {
+    const department = await Department.find().sort({ name:1 });
+    if (!department || department.length === 0) {
       return res
-        .status(400)
+        .status(404)
         .json({ success: false, message: "No Department Found" });
     }
+
     res
       .status(200)
       .json({ success: true, message: "All Departments", doctors });
