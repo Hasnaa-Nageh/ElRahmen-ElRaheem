@@ -11,7 +11,7 @@ const getAllDepartment = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: "All Departments", doctors });
+      .json({ success: true, message: "All Departments", department });
   } catch (err) {
     console.error(err);
     res.status(500).json({
