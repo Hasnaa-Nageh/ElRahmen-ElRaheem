@@ -45,6 +45,11 @@ const doctorSchema = new mongoose.Schema(
       enum: ["user", "doctor", "admin", "reception"],
       default: "doctor",
     },
+    department: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+      required: true,
+    },
   },
   { timestamps: true }
 );
