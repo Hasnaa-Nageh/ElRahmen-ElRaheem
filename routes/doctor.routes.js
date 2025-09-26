@@ -1,7 +1,7 @@
 const express = require("express");
 const { authenticateToken } = require("../middleware/authenticate.middleware");
 const authorize = require("../middleware/authorize.middleware");
-const upload = require("../middleware/upload.middleware");
+const {uploadDoc} = require("../middleware/upload.middleware");
 const {
   addDoctor,
   getAllDoctors,
@@ -23,7 +23,7 @@ router.post(
   "/add-doctor",
   authenticateToken,
   authorize("admin"),
-  upload.single("image"),
+  uploadDoc.single("image"),
   addDoctor
 );
 

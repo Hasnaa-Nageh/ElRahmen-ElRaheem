@@ -9,8 +9,15 @@ const {
 } = require("./../controller/department.controller");
 const { authenticateToken } = require("../middleware/authenticate.middleware");
 const authorize = require("../middleware/authorize.middleware");
+const {uploadDepartment} = require("../middleware/upload.middleware");
 
-router.post("/", authenticateToken, authorize("admin"), addDepartment);
+router.post(
+  "/",
+  authenticateToken,
+  authorize("admin"),
+  uploadDepartment.single("icon"),
+  addDepartment
+);
 router.get("/", getAllDepartment);
 router.get("/:id", getSingleDepartment);
 router.put("/:id", authenticateToken, authorize("admin"), updateDepartment);

@@ -1,9 +1,9 @@
 const Department = require("./../models/department.model");
-
+const fs = require("fs");
 const getAllDepartment = async (req, res) => {
   try {
     const departments = await Department.find().sort({ name: 1 });
-    
+
     if (!departments || departments.length === 0) {
       return res
         .status(404)
@@ -24,7 +24,6 @@ const getAllDepartment = async (req, res) => {
     });
   }
 };
-
 
 const getSingleDepartment = async (req, res) => {
   try {
@@ -47,9 +46,10 @@ const getSingleDepartment = async (req, res) => {
     });
   }
 };
+
 const addDepartment = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, icon } = req.body;
     if (!name) {
       return res
         .status(400)
@@ -57,6 +57,7 @@ const addDepartment = async (req, res) => {
     }
     const department = new Department({
       name,
+      icon: req.file ? `/uploads/departments/${req.file.filename}` : "",
       createdBy: req.user?.id || null,
     });
     await department.save();
