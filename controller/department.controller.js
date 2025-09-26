@@ -55,6 +55,12 @@ const addDepartment = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Department Name if Required" });
     }
+    const nameExist = await Department.findOne({ name });
+    if (nameExist) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Department Already Exist" });
+    }
     const department = new Department({
       name,
       icon: req.file
