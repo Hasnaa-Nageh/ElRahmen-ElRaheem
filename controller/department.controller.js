@@ -53,7 +53,7 @@ const addDepartment = async (req, res) => {
       name,
       createdBy: req.user?.id || null,
     });
-    await department();
+    await department.save();
     res.status(201).json({
       success: true,
       message: "Department Added Successfully",
