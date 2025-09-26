@@ -25,8 +25,7 @@ app.use(
   cors({
     origin: [
       "https://to-do-list-frontend-red.vercel.app",
-      "http://localhost:5173",
-      "https://localhost:5173",
+      "http://localhost:5173/",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -42,5 +41,5 @@ app.use("/api/appointment", appointmentRouter);
 app.use("/api/docAnalysis", analysisRoute);
 app.use("/api/lab", labRouter);
 app.use("/api/analysis", analysisRoute);
-app.use("/api/departments",departmentRoute)
+app.use("/api/departments", departmentRoute);
 module.exports = app;
