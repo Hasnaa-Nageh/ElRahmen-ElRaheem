@@ -2,7 +2,7 @@ const Department = require("./../models/department.model");
 
 const getAllDepartment = async (req, res) => {
   try {
-    const department = (await Department.find()).sort({ name });
+    const department = await Department.find().sort({ name });
     if (!department) {
       return res
         .status(400)
