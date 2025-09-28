@@ -58,4 +58,4 @@ const uploadDepartment = multer({
   fileFilter,
 });
 
-module.exports = { uploadDoc, uploadDepartment };
+module.exports = { uploadDoc, uploadDepartment }; 
