@@ -1,6 +1,4 @@
 const Doctor = require("../models/doctor.model");
-const fs = require("fs");
-const path = require("path");
 const bcrypt = require("bcrypt");
 
 const addDoctor = async (req, res) => {
@@ -50,7 +48,7 @@ const addDoctor = async (req, res) => {
     }
 
     // handle image upload (Base64)
-    const imagePath = req.file ? `/uploads/doctors/${req.file.filename}` : "";
+    const imagePath = req.file ? `/uploads/doctors/${req.file.filename}` : null;
     // hash password before saving
     const hashedPassword = await bcrypt.hash(password, 12);
 
