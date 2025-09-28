@@ -31,7 +31,6 @@ const addDoctor = async (req, res) => {
       });
     }
 
-    
     // handle availableDays
     if (typeof availableDays === "string") {
       try {
@@ -51,17 +50,7 @@ const addDoctor = async (req, res) => {
     }
 
     // handle image upload (Base64)
-    let imagePath = "";
-    if (image && image.startsWith("data:image")) {
-      const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
-      const buffer = Buffer.from(base64Data, "base64");
-      const filename = `${Date.now()}-${normalizedEmail}.jpg`;
-      const uploadPath = path.join(__dirname, "../uploads/doctors", filename);
-
-      fs.writeFileSync(uploadPath, buffer);
-      imagePath = `/uploads/doctors/${filename}`;
-    }
-
+    const imagePath = req.file ? `/uploads/doctors/${req.file.filename}` : "";
     // hash password before saving
     const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -165,7 +154,9 @@ const searchDoctor = async (req, res, next) => {
   try {
     const { query } = req.query;
     if (!query) {
-      return res.status(400).json({success:false, message: "Search query is required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Search query is required" });
     }
     const doctors = await Doctor.find({
       $or: [
