@@ -48,7 +48,26 @@ const addDoctor = async (req, res) => {
     }
 
     // handle image upload (Base64)
-    const imagePath = req.file ? `/uploads/doctors/${req.file.filename}` : null;
+
+    // في addDoctor
+    let imagePath = null;
+
+    if (req.file) {
+      // لو الصورة جاية كـ File
+      imagePath = `/uploads/doctors/${req.file.filename}`;
+    } else if (req.body.image && req.body.image.startsWith("data:image")) {
+      // لو الصورة جاية Base64
+      const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, "");
+      const buffer = Buffer.from(base64Data, "base64");
+      const fileName = `${Date.now()}-doctor.png`;
+      const filePath = path.join("uploads/doctors", fileName);
+
+      // نخزنها في السيرفر
+      require("fs").writeFileSync(filePath, buffer);
+
+      imagePath = `/uploads/doctors/${fileName}`;
+    }
+
     // hash password before saving
     const hashedPassword = await bcrypt.hash(password, 12);
 
