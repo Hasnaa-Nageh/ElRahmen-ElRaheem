@@ -1,7 +1,6 @@
 const Doctor = require("../models/doctor.model");
 const bcrypt = require("bcrypt");
-const path = require("path");
-const fs = require("fs")
+
 const addDoctor = async (req, res) => {
   try {
     let {
@@ -14,6 +13,7 @@ const addDoctor = async (req, res) => {
       availableTimes,
       notes,
       department,
+      image,
     } = req.body;
 
     // normalize email (remove spaces + lowercase)
@@ -50,25 +50,6 @@ const addDoctor = async (req, res) => {
 
     // handle image upload (Base64)
 
-    // في addDoctor
-    let imagePath = null;
-
-    if (req.file) {
-      // لو الصورة جاية كـ File
-      imagePath = `/uploads/doctors/${req.file.filename}`;
-    } else if (req.body.image && req.body.image.startsWith("data:image")) {
-      // لو الصورة جاية Base64
-      const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, "");
-      const buffer = Buffer.from(base64Data, "base64");
-      const fileName = `${Date.now()}-doctor.png`;
-      const filePath = path.join("uploads/doctors", fileName);
-
-      // نخزنها في السيرفر
-      require("fs").writeFileSync(filePath, buffer);
-
-      imagePath = `/uploads/doctors/${fileName}`;
-    }
-
     // hash password before saving
     const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -82,7 +63,7 @@ const addDoctor = async (req, res) => {
       availableDays,
       availableTimes,
       notes,
-      image: imagePath,
+      image: req.file ? `/uploads/doctors/${req.file.filename}` : image || "",
       createdBy: req.user?.id || null,
     });
 
