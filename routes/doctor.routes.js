@@ -15,9 +15,9 @@ const router = express.Router();
 
 router.get("/search", authenticateToken, searchDoctor);
 
-router.get("/get-doctors", authenticateToken, getAllDoctors);
+router.get("/get-doctors", getAllDoctors);
 
-router.get("/get-single-doctor/:id", authenticateToken, getSingleDoctor);
+router.get("/get-single-doctor/:id", getSingleDoctor);
 // Add Doctor
 router.post(
   "/add-doctor",
