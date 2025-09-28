@@ -14,7 +14,7 @@ const addDoctor = async (req, res) => {
       availableDays,
       availableTimes,
       notes,
-      image,
+      department,
     } = req.body;
 
     // normalize email (remove spaces + lowercase)
@@ -59,6 +59,7 @@ const addDoctor = async (req, res) => {
       email: normalizedEmail,
       password: hashedPassword,
       phone,
+      department,
       specialization,
       availableDays,
       availableTimes,
