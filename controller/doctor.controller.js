@@ -1,6 +1,7 @@
 const Doctor = require("../models/doctor.model");
 const bcrypt = require("bcrypt");
-
+const path = require("path");
+const fs = require("fs")
 const addDoctor = async (req, res) => {
   try {
     let {
